@@ -3,7 +3,8 @@ import React from 'react'
 import { Dialog, Transition, DialogTitle } from "@headlessui/react";
 import { Fragment } from "react";
 import { useState } from 'react'
-const AddUser = () => {
+import updateList from '../src/app/page.js';
+const AddUser = ({updateList}) => {
     const USER_API_BASE_URL = "http://localhost:8080/api/users/user";
     const [isOpen, setIsOpen] = useState(false);
 
@@ -29,12 +30,18 @@ const AddUser = () => {
             },
             body: JSON.stringify(user)
         });
-        if(!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        const _user = await response.json();
+        if(response.ok) {
+            updateList(); // This will tell the page to refresh the list with the latest data from the backend
+            closeModal();
+            setUser({
+                id: "",
+                firstName: "",
+                lastName: "",
+                emailId: "",
+            });
 
-        closeModal();
+        }
+        
     }
 
     function closeModal() {
