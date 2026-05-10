@@ -4,7 +4,7 @@ import User from "./User"
 
 
 
-const UserList = ({ users, setUsers, loading }) => {
+const UserList = ({ users, setUsers, loading, editUser }) => {
 
     // Simplifies this in UserList.js:
     const deleteUser = (e, id) => {
@@ -32,7 +32,7 @@ const UserList = ({ users, setUsers, loading }) => {
                 {!loading &&(
                     <tbody className='bg-white'>
                         {users && users.map((user) => (
-                            <User user={user} key={user.id} deleteUser={deleteUser} />
+                            <User user={user} key={user.id} deleteUser={deleteUser} editUser={editUser} />
                         ))}
                     </tbody>
                 )}

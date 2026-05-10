@@ -1,6 +1,6 @@
 import React from 'react'
 
-const User = ({user, deleteUser}) => {
+const User = ({user, deleteUser, editUser}) => {
 
     const USER_API_BASE_URL = `http://localhost:8080/api/users/${user.id}`;
 
@@ -32,8 +32,8 @@ const User = ({user, deleteUser}) => {
             <div className='text-sm text-gray-500'>{user.emailId}</div>
         </td>
         <td className='text-right px-6 py-4 whitespace-nowrap'>
-            <a href='#' className='text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-4'>Edit</a>
-            <a href='#' className='text-indigo-600 hover:text-indigo-800 hover:cursor-pointer' onClick={(e, id) => handleDelete(e, user.id)}>Delete</a>
+            <a href='#' className='text-indigo-600 hover:text-indigo-800 hover:cursor-pointer px-4' onClick={(e) => editUser(e, user.id)}>Edit</a>
+            <a href='#' className='text-indigo-600 hover:text-indigo-800 hover:cursor-pointer' onClick={(e) => handleDelete(e, user.id)}>Delete</a>
         </td>
     </tr>
   )

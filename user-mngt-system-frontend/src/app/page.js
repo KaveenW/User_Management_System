@@ -4,11 +4,13 @@ import Navbar from "../../components/Navbar";
 import UserList from "../../components/UserList"
 import AddUser from "../../components/AddUser";
 import { useEffect, useState } from "react";
+import EditUser from "../../components/EditUser";
 
 export default function Home() {
 
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editUserId, setEditUserId] = useState(null);
 
     // This function fetches the latest data from your Spring Boot backend
   const fetchData = async () => {
@@ -28,16 +30,24 @@ export default function Home() {
         fetchData();
     }, []);
 
-
+    const editUser = (e, id) =>{
+        e.preventDefault();
+        setEditUserId(id);
+    }
     return (
-        <div>
+        <div className="min-h-screen bg-gray-100">
             <Navbar />
-            <main>
+            <main className="px-10 py-10">
                 {/* We pass fetchData so AddUser can tell the page to refresh */}
                 <AddUser updateList={fetchData} />
                 
                 {/* We pass users and setUsers so UserList can display and delete */}
-                <UserList users={users} setUsers={setUsers} loading={loading} />
+                <UserList users={users} setUsers={setUsers} loading={loading} editUser={editUser}/>
+                <EditUser 
+                userId={editUserId} 
+                setUserId={setEditUserId} 
+                updateList={fetchData} 
+            />
             </main>
         </div>
     );
